@@ -1,0 +1,124 @@
+package Aula;
+
+public abstract class Animal {
+
+	protected int idade;
+	protected double peso;
+	protected String nomePopular;
+
+	public Animal() {}
+	public Animal(int idade, double peso, String nomePopular) {
+
+		this.idade = idade;
+		this.peso = peso;
+		this.nomePopular = nomePopular;
+
+	}
+
+	public void emitirSom() {
+
+		System.out.println("Som não definido");
+
+	}
+
+	public abstract void locomocao(); 
+
+
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+
+package Aula;
+
+public class Ave extends Animal {
+
+	private double envergaduraAsa;
+	private String formatoBico;
+	private String CorOvo;
+	private boolean voa;
+
+	public Ave(int idade, double peso, String nomePopular, double envergaduraAsa, String formatoBico, String corOvo,
+			boolean voa) {
+		super(idade, peso, nomePopular);
+		this.CorOvo = corOvo;
+		this.envergaduraAsa = envergaduraAsa;
+		this.formatoBico = formatoBico;
+		this.voa = voa;
+	}
+
+	@Override
+	public void emitirSom() {
+		System.out.println("piaaa");
+	}
+	
+	@Override
+	public void locomocao() {
+		
+		System.out.println("Voa");
+		
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+
+package Aula;
+
+public class Mamifero extends Animal {
+
+	private boolean temPelo;
+	private boolean temRabo;
+	
+	
+	public Mamifero(int idade, double peso, String nomePopular, boolean temPelo, boolean temRabo) {
+		super(idade, peso, nomePopular);
+		this.temPelo =  temPelo;
+		this.temRabo = temRabo;
+		
+	}
+
+	@Override
+	public void emitirSom() {
+		System.out.println("cof cof");
+	}
+	@Override
+	
+	public String toString() {
+		
+		
+		return "Nome: "+nomePopular+", Peso: "+ peso +", Idade: "+ idade+", Tem pelo: "+temPelo+", Tem rabo: "+ temRabo;
+	}
+	@Override
+	public void locomocao() {
+		
+		System.out.println("Anda");
+		
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+package app;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Aula.Animal;
+import Aula.Ave;
+import Aula.Mamifero;
+public class Main {
+
+	public static void main(String[] args) {
+
+		Ave queroQuero = new Ave(1, 0.100, "Quero Quero", 0.50, "Reto", "Branco", true);
+
+		queroQuero.emitirSom();
+
+		Mamifero cachorro = new Mamifero(15,5.0, "Cachorro", true, true );
+	
+		cachorro.emitirSom();
+		System.out.println(cachorro);
+		
+		List<Animal> listaAnimal = new ArrayList<Animal>(20);
+		listaAnimal.add(queroQuero);
+		listaAnimal.add(cachorro);
+		
+	}
+}
+
