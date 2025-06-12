@@ -1,0 +1,83 @@
+package model;
+
+public abstract class Servico {
+
+	protected String nome;
+	protected double custoBase;
+	protected boolean status;
+	protected String ambiente;
+
+	public Servico() {
+	}
+
+	public Servico(String nome, double custoBase, boolean status, String ambiente) {
+
+		this.nome = nome;
+		this.custoBase = custoBase;
+		this.status = status;
+		this.ambiente = ambiente;
+	}
+
+	// Abstracts
+
+	public abstract double calcularCusto(int horas);
+
+	public abstract String gerarRelatorio();
+
+	// Concretos
+
+	public void ativar() {
+		this.status = true;
+	}
+
+	public void desativar() {
+		this.status = false;
+	}
+
+	public boolean isAtivo() {
+		return status;
+	}
+	
+	// Getter
+	public String getNome() {
+		return nome;
+	}
+
+	public double getCustoBase() {
+		return custoBase;
+	}
+	
+	public String getAmbiente() {
+		return ambiente;
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+
+package model;
+
+public class ServicoArmazenamento extends Servico {
+	
+	private double tamanhoGB;
+	private boolean redundancia;
+
+	public ServicoArmazenamento(String nome, double custoBase, boolean status, String ambiente, double tamanhoGB, boolean redundancia) {
+		super(nome, custoBase, status, ambiente);
+		
+		this.redundancia = redundancia;
+		this.tamanhoGB = tamanhoGB;
+	}
+
+	@Override
+	public double calcularCusto(int horas) {
+		return horas * custoBase;
+	}
+	
+	@Override
+	public String gerarRelatorio() {
+    String relatorio = "AAAAAAAAAAAAAAAAAA";
+	return relatorio;
+	} 
+}
+
+
