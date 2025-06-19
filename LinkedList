@@ -1,0 +1,107 @@
+package Aula;
+
+public class Exercicio1<e> {
+	No<e> cabeca;
+
+	public void adcionarInicio(e valor) {
+		No<e> novoElemento = new No<>(valor);
+		if (cabeca == null) {
+			cabeca = novoElemento;
+		} else {
+			novoElemento.proximo = cabeca;
+			cabeca = novoElemento;
+		}
+	}
+
+	public void adicionarFim(e valor) {
+		No<e> novoElemento = new No<>(valor);
+
+		if (cabeca == null) {
+			cabeca = novoElemento;
+			return;
+		}
+
+		No<e> temp = cabeca;
+		while (temp.proximo != null) {
+			temp = temp.proximo;
+		}
+		temp.proximo = novoElemento;
+	}
+	public void removerPrimeiro() {
+		No<e> temp = cabeca;
+		if(cabeca != null) {
+		cabeca = temp.proximo;
+		}
+	}
+	public void removerUltimo() {
+		if (cabeca == null)return;
+		if (cabeca.proximo == null) {
+			cabeca = null;
+		} else {
+			No<e> temp = cabeca;
+			while (temp.proximo.proximo != null) {
+				temp = temp.proximo;
+			}
+			temp.proximo = null;
+		}
+
+	}
+
+	public int contar() {
+		No<e> temp = cabeca;
+		int cont = 0;
+
+		while (temp != null) {
+			temp = temp.proximo;
+			cont++;
+		}
+		return cont;
+	}
+
+	public boolean acharValor(e valor) {
+	    No<e> temp = cabeca;
+	    while (temp != null) {
+	        if (temp.valor.equals(valor)) {
+	            return true;
+	        }
+	        temp = temp.proximo;
+	    }
+	    return false;
+	}
+	public void imprimir() {
+		No<e> temp = cabeca;
+	
+		while (temp != null) {
+			System.out.print(temp.valor + " -> ");
+			temp = temp.proximo;
+		}
+		System.out.println("null");
+	}
+
+	public static class No<t> {
+		t valor;
+		No<t> proximo;
+
+		public No(t valor) {
+			this.valor = valor;
+			this.proximo = null;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		Exercicio1<Integer> lista = new Exercicio1<>();
+		
+		lista.adcionarInicio(2);
+		lista.adcionarInicio(1);
+		lista.imprimir();
+		lista.adicionarFim(3);
+		lista.adicionarFim(4);
+		lista.removerPrimeiro();
+		lista.imprimir();
+		
+		System.out.println("Numero de elementos na lista são: " + lista.contar());
+		System.out.println(lista.acharValor(24));
+		
+	}
+}
