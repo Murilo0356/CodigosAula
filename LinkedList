@@ -27,12 +27,15 @@ public class Exercicio1<e> {
 		}
 		temp.proximo = novoElemento;
 	}
-	public void removerPrimeiro() {
-		No<e> temp = cabeca;
-		if(cabeca != null) {
-		cabeca = temp.proximo;
-		}
+	public e removerPrimeiro() {
+	    if (cabeca == null) {
+	        return null; 
+	    }
+	    e valorRemovido = cabeca.valor; 
+	    cabeca = cabeca.proximo;        
+	    return valorRemovido;           
 	}
+	
 	public void removerUltimo() {
 		if (cabeca == null)return;
 		if (cabeca.proximo == null) {
