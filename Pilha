@@ -1,0 +1,19 @@
+package Aula;
+
+public class Pilha<T> {
+
+	ListaEncadeada<T> lista = new ListaEncadeada<>();
+
+	public void empilhar(T valor) {
+		
+		lista.adcionarInicio(valor);
+		
+	}
+	
+  public T desempilhar() {
+		return lista.removerPrimeiro();
+	
+		
+	}
+	
+}
