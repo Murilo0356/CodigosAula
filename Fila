@@ -1,0 +1,15 @@
+package Aula;
+
+public class Fila<T> {
+
+		ListaEncadeada<T> lista = new ListaEncadeada<>();
+
+		public void enfileirar(T valor) {
+			lista.adicionarFim(valor);
+		}
+		public T desenfileirar() {
+			
+			return lista.removerPrimeiro();
+		}
+
+}
