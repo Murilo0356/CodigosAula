@@ -1,0 +1,79 @@
+package Listas;
+
+import Listas.Lista.No;
+
+public class ListaDuplamenteEncadeada {
+
+	No primeiro;
+	int tamanho;
+
+	public void adcionarInicio(int valor) {
+		No novo = new No(valor);
+		if (primeiro == null) {
+
+			primeiro = novo;
+			tamanho++;
+		} else {
+			novo.proximo = primeiro;
+			primeiro.anterior = novo;
+			primeiro = novo;
+			tamanho++;
+
+		}
+	}
+	
+	public void adcionarFim(int valor) {
+
+		No novo = new No(valor);
+		if (primeiro == null) {
+			primeiro = novo;
+			tamanho++;
+		} else {
+			No aux = primeiro;
+			while (aux.proximo != null) {
+				aux = aux.proximo;
+
+			}
+			novo.anterior = aux;
+			aux.proximo = novo;
+			tamanho++;
+		}
+
+	}
+
+	public void imprimir() {
+		No aux = primeiro;
+
+		while (aux != null) {
+			System.out.print(aux.valor + "(" + (aux.anterior != null ? aux.anterior.valor : "null") + ") ");
+			aux = aux.proximo;
+		}
+		System.out.println("null");
+	}
+
+	private static class No {
+
+		int valor;
+		No proximo;
+		No anterior;
+
+		public No(int valor) {
+			this.valor = valor;
+			this.proximo = null;
+			this.anterior = null;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+		lista.adcionarInicio(0);
+		lista.adcionarInicio(12);
+		lista.adcionarInicio(98);
+		lista.adcionarInicio(32);
+		lista.adcionarFim(421);
+		lista.adcionarFim(87);
+		lista.imprimir();
+	}
+
+}
