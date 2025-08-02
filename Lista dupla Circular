@@ -1,0 +1,80 @@
+package Listas;
+
+public class ListaDuplaCircular {
+
+	No primeiro;
+	int tamanho;
+
+	public void adcionarInicio(int valor) {
+		No novo = new No(valor);
+		if (primeiro == null) {
+			novo.proximo = novo;
+			novo.anterior = novo;
+			primeiro = novo;
+			tamanho++;
+		} else {
+			No ultimo = primeiro.anterior;
+			
+			novo.proximo = primeiro;
+			primeiro.anterior = novo;
+			novo.anterior = ultimo;
+			primeiro = novo;
+			ultimo.proximo = novo;
+			tamanho++;
+
+		}
+	}
+	
+	public void adcionarFim(int valor) {
+
+		No novo = new No(valor);
+		if (primeiro == null) {
+			primeiro = novo;
+			tamanho++;
+		} else {
+			No aux = primeiro;
+			while (aux.proximo != null) {
+				aux = aux.proximo;
+
+			}
+			novo.anterior = aux;
+			aux.proximo = novo;
+			tamanho++;
+		}
+
+	}
+
+	public void imprimir() {
+		No aux = primeiro;
+		int cont = 0;
+		while (cont < tamanho) {
+			System.out.print(aux.valor + "(" + aux.anterior.valor+ ") ");
+			aux = aux.proximo;
+			cont++;
+		}
+	}
+
+	private static class No {
+
+		int valor;
+		No proximo;
+		No anterior;
+
+		public No(int valor) {
+			this.valor = valor;
+			this.proximo = null;
+			this.anterior = null;
+		}
+	}
+
+	public static void main(String[] args) {
+
+		ListaDuplaCircular lista = new ListaDuplaCircular();
+		lista.adcionarInicio(0);
+		lista.adcionarInicio(12);
+		lista.adcionarInicio(98);
+		lista.adcionarInicio(32);
+		lista.imprimir();
+	}
+
+}
