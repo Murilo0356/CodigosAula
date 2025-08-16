@@ -1,3 +1,21 @@
+
+
+package exercicios;
+
+public class No<t> {
+
+	int valor;
+	No<t> proximo;
+	No<t> anterior;
+
+	public No( int valor) {
+		this.valor = valor;
+		this.proximo = null;
+		this.anterior = null;
+	}
+}
+
+
 package exercicios;
 
 public class ListaDupla  {
@@ -53,7 +71,7 @@ public class ListaDupla  {
 		
 		System.out.print("null ");
 		while(aux != null ) {
-			System.out.print("<- "+ aux.valor + "(null" + (aux.anterior != null ? aux.anterior.valor : "" ) + ") " );
+			System.out.print("<- "+ aux.valor + "(" + (aux.anterior != null ? aux.anterior.valor : "null" ) + ") " );
 			aux = aux.anterior;
 		}
 		System.out.println("");
@@ -61,6 +79,16 @@ public class ListaDupla  {
 	public static void main(String[]args) {
 		
 		
+		ListaDupla lista = new ListaDupla();
+		lista.adcionarInicio(12);
+		lista.adcionarInicio(43);
+		lista.adcionarFim(15);
+		lista.imprimirContrario();
+		System.out.println("");
+		lista.imprimir();
+	}
+}
+
 		ListaDupla lista = new ListaDupla();
 		lista.adcionarInicio(12);
 		lista.adcionarInicio(43);
