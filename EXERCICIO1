@@ -1,0 +1,72 @@
+package exercicios;
+
+public class ListaDupla  {
+	No cabeca;
+	int tamanho;
+	public void adcionarInicio(int valor) {
+		No novoElemento = new No(valor);
+		if(cabeca == null) {
+			cabeca = novoElemento;
+			tamanho++;
+		}
+		else {
+			novoElemento.proximo = cabeca;
+			cabeca.anterior = novoElemento;
+			cabeca = novoElemento;
+			tamanho++;
+			}
+		}
+	
+	public void adcionarFim(int valor) {
+		No novoElemento = new No(valor);
+		if(cabeca == null) {
+			cabeca = novoElemento;
+			tamanho++;
+		}
+		else {
+			No aux = cabeca;
+			while(aux.proximo != null) {
+				aux = aux.proximo;	
+			}	
+			novoElemento.anterior = aux;
+			aux.proximo = novoElemento;
+			tamanho ++;
+		}	
+	}
+	
+	public void imprimir() {
+		No aux = cabeca;
+		while(aux != null ) {
+			
+			System.out.print(aux.valor + "(" + (aux.anterior != null ? aux.anterior.valor : "null") + ") -> " );
+			aux = aux.proximo;
+			
+		}
+		System.out.println("null");
+	}
+	
+	public void imprimirContrario() {
+		No aux = cabeca;
+		while(aux.proximo != null){
+			aux = aux.proximo;
+		}
+		
+		System.out.print("null ");
+		while(aux != null ) {
+			System.out.print("<- "+ aux.valor + "(null" + (aux.anterior != null ? aux.anterior.valor : "" ) + ") " );
+			aux = aux.anterior;
+		}
+		System.out.println("");
+	}
+	public static void main(String[]args) {
+		
+		
+		ListaDupla lista = new ListaDupla();
+		lista.adcionarInicio(12);
+		lista.adcionarInicio(43);
+		lista.adcionarFim(15);
+		lista.imprimirContrario();
+		System.out.println("");
+		lista.imprimir();
+	}
+}
