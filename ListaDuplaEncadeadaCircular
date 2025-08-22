@@ -1,0 +1,182 @@
+package Listas;
+
+public class ListaDuplaCircular<E> {
+
+	No<E> cabeca;
+	No<E> cauda;
+	int tamanho;
+	public void inserirInicio(E valor){
+		
+		No<E> novoElemento =  new No<>(valor);
+		
+		if(cabeca ==  null) {
+			
+			cabeca = novoElemento;
+			cauda = novoElemento;
+			cauda.proximo = cabeca;
+			cabeca.anterior = cauda;
+			tamanho++;
+		}else {
+			
+			
+			cabeca.anterior = novoElemento;
+			novoElemento.proximo = cabeca;
+			
+			novoElemento.anterior = cauda;
+			cauda.proximo = novoElemento;
+			cabeca = novoElemento;
+			tamanho++;
+			}
+			
+		}
+		
+
+		public void inserirNoFim(E valor){
+			
+			No<E> novoElemento =  new No<>(valor);
+			
+			
+			if(cauda == null) {
+				
+				cabeca = novoElemento;
+				cauda = novoElemento;
+				cauda.proximo = cabeca;
+				cabeca.anterior = cauda;
+				tamanho++;
+			}
+			else {
+				
+				cauda.proximo = novoElemento;
+				novoElemento.anterior = cauda;
+				
+				cabeca.anterior = novoElemento;
+				novoElemento.proximo = cabeca;
+				
+				cauda = novoElemento;
+				tamanho++;
+			}
+		}
+			public void imprimir() {
+				No<E> aux = cabeca;
+				 
+				if (cabeca == null) {
+				        System.out.println("Lista Circular Vazia []");
+				        return;
+				    }
+				
+				int cont = 0;
+				while (cont < tamanho) {
+					System.out.print(aux.valor + "(" + aux.anterior.valor+ ") -> ");
+					aux = aux.proximo;
+					cont++;
+				}System.out.println("("+cabeca.valor+")");
+			}
+	
+			
+			public void removerInicio() {
+				
+				if(cabeca == null) {
+					System.out.println("A lista já esta vazia");
+					
+				}else if(cabeca.proximo == cabeca) {
+					cabeca = null;
+					cauda = null;
+					System.out.println("Valor removido, agora a lista esta vazia!!! ");
+					tamanho --;
+					
+				}else {
+					cabeca = cabeca.proximo;
+					cabeca.anterior = cauda;
+					cauda.proximo = cabeca;
+				
+				System.out.println("Valor removido ");
+				tamanho --;
+			}
+	}
+			
+			public void removerFim() {
+				
+				if(cauda == null) {
+					System.out.println("A lista já esta vazia");
+				}else if(cauda.proximo == cauda) {
+					cabeca = null;
+					cauda = null;
+					tamanho --;
+					
+				}else {
+					cauda= cauda.anterior;
+					cauda.proximo = cabeca;
+					cabeca.anterior  = cauda;
+					tamanho --;
+				}
+				
+			}
+			
+			public void removerIndice(int indice) {
+				
+				if(indice<0 || indice>tamanho) {
+					System.out.println("Valor invalido!!!");
+					return;
+				}if(indice == 0){
+					removerInicio();
+					
+				}else if(indice == tamanho - 1) {
+					removerFim();
+				
+				}else {
+					No<E> posicao = cabeca;
+					for(int cont =0; cont<indice; cont++) {
+						posicao = posicao.proximo;
+					}
+					No<E> posicaoAnterior = posicao.anterior;
+					No<E> posicaoProximo = posicao.proximo;
+					
+					posicaoAnterior.proximo = posicaoProximo;
+					posicaoProximo.anterior = posicaoAnterior;
+					tamanho --;
+				}
+			}
+			
+			public void inserirIndice(int indice, E valor) {
+				
+				if(indice<0||indice>= tamanho){
+					System.out.println("INDICE INVALIDO!!!");
+				}else if(indice == 0) {
+					inserirInicio(valor);
+					
+				}else if(indice == tamanho ) {
+					inserirNoFim(valor);
+					
+				}else {
+					No<E> novoElemento = new No<>(valor);
+					No<E> posicao = cabeca;
+					for(int cont = 0; cont<indice; cont++) {
+						posicao = posicao.proximo;
+					}
+					No<E> posicaoAnterior = posicao.anterior;
+					
+					posicaoAnterior.proximo = novoElemento;
+					novoElemento.proximo = posicao;
+					novoElemento.anterior = posicaoAnterior;
+					posicao.anterior = novoElemento;
+					
+					tamanho++;
+				}
+				
+			}
+			
+		public static void main(String[]args) {
+			
+			ListaDuplaCircular<Integer> lista =  new ListaDuplaCircular<>();
+			lista.inserirInicio(123);
+			lista.inserirInicio(432);
+			lista.inserirInicio(982);
+			lista.inserirInicio(960);
+			lista.inserirNoFim(44);
+			lista.inserirNoFim(532);
+			lista.removerIndice(0);
+			lista.imprimir();
+		}
+		}
+	
+
