@@ -1,100 +1,204 @@
+package estudos;
 
-
-package exercicios;
-
-public class No<t> {
-
-	int valor;
-	No<t> proximo;
-	No<t> anterior;
-
-	public No( int valor) {
-		this.valor = valor;
-		this.proximo = null;
-		this.anterior = null;
-	}
-}
-
-
-package exercicios;
-
-public class ListaDupla  {
-	No cabeca;
+public class ListaDupla<e> {
+	No<e> cabeca;
 	int tamanho;
-	public void adcionarInicio(int valor) {
-		No novoElemento = new No(valor);
-		if(cabeca == null) {
+
+	public void adcionarInicio(e valor) {
+		No<e> novoElemento = new No<>(valor);
+		if (cabeca == null) {
 			cabeca = novoElemento;
 			tamanho++;
-		}
-		else {
+
+		} else {
 			novoElemento.proximo = cabeca;
 			cabeca.anterior = novoElemento;
 			cabeca = novoElemento;
 			tamanho++;
-			}
+
 		}
-	
-	public void adcionarFim(int valor) {
-		No novoElemento = new No(valor);
-		if(cabeca == null) {
-			cabeca = novoElemento;
+
+	}
+
+	public void adcionarFim(e valor) {
+
+		No<e> novo = new No<e>(valor);
+		if (cabeca == null) {
+			cabeca = novo;
+			tamanho++;
+		} else {
+			No<e> aux = cabeca;
+			while (aux.proximo != null) {
+				aux = aux.proximo;
+
+			}
+			novo.anterior = aux;
+			aux.proximo = novo;
 			tamanho++;
 		}
-		else {
-			No aux = cabeca;
-			while(aux.proximo != null) {
-				aux = aux.proximo;	
-			}	
-			novoElemento.anterior = aux;
-			aux.proximo = novoElemento;
-			tamanho ++;
-		}	
+
 	}
-	
+
 	public void imprimir() {
-		No aux = cabeca;
-		while(aux != null ) {
-			
-			System.out.print(aux.valor + "(" + (aux.anterior != null ? aux.anterior.valor : "null") + ") -> " );
+		No<e> aux = cabeca;
+
+		while (aux != null) {
+			System.out.print(aux.valor + "(ant:" + (aux.anterior != null ? aux.anterior.valor : "null") + ") -> ");
 			aux = aux.proximo;
-			
 		}
 		System.out.println("null");
 	}
-	
+
 	public void imprimirContrario() {
-		No aux = cabeca;
-		while(aux.proximo != null){
+
+		No<e> aux = cabeca;
+
+		while (aux.proximo != null) {
 			aux = aux.proximo;
 		}
-		
-		System.out.print("null ");
-		while(aux != null ) {
-			System.out.print("<- "+ aux.valor + "(" + (aux.anterior != null ? aux.anterior.valor : "null" ) + ") " );
+
+		while (aux != null) {
+
+			System.out
+					.print(" <- " + aux.valor + " (ant: " + (aux.anterior != null ? aux.anterior.valor : "null") + ")");
 			aux = aux.anterior;
 		}
-		System.out.println("");
-	}
-	public static void main(String[]args) {
-		
-		
-		ListaDupla lista = new ListaDupla();
-		lista.adcionarInicio(12);
-		lista.adcionarInicio(43);
-		lista.adcionarFim(15);
-		lista.imprimirContrario();
-		System.out.println("");
-		lista.imprimir();
-	}
-}
 
-		ListaDupla lista = new ListaDupla();
-		lista.adcionarInicio(12);
-		lista.adcionarInicio(43);
-		lista.adcionarFim(15);
+	}
+
+	public boolean contem(e valor) {
+		No<e> aux = cabeca;
+
+		while (aux != null) {
+
+			if (aux.valor.equals(valor)) {
+				System.out.println("Valor contido na lista");
+				return true;
+			}
+			aux = aux.proximo;
+		}
+		System.out.println("Valor não contido na lista");
+		return false;
+	}
+
+	public void removerInicio() {
+
+		if (cabeca == null) {
+			System.out.println("A lista já esta vazia!!!");
+		} else if (cabeca.proximo == null) {
+
+			cabeca = null;
+			System.out.println("Valor apagado a lista ficou vazia");
+			tamanho --;
+		} else {
+
+			cabeca = cabeca.proximo;
+			cabeca.anterior = null;
+			tamanho --;
+		}
+	}
+
+	public void removerFim() {
+		if (cabeca == null) {
+			return;
+		}
+		if (cabeca.proximo == null) {
+			cabeca = null;
+			tamanho --;
+			return;
+		}
+		No<e> aux = cabeca;
+		while (aux.proximo != null) {
+			aux = aux.proximo;
+		}
+		aux = aux.anterior;
+		aux.proximo = null;
+		tamanho --;
+	}
+
+	public void inserirEmPosicao(int posicao, e valor) {
+
+		if (posicao < 0 || posicao > tamanho) {
+			System.out.println("Posição inválida: " + posicao + ". A lista tem tamanho " + tamanho + ".");
+			return;
+		}
+
+		if (posicao == 0) {
+			adcionarInicio(valor);
+		}
+
+		if (posicao == tamanho) {
+			adcionarFim(valor);
+			return;
+		}
+
+		No<e> aux = cabeca;
+		for (int i = 0; i < posicao; i++) {
+			aux = aux.proximo;
+		}
+
+		No<e> noAnterior = aux.anterior;
+
+		No<e> novoElemento = new No<>(valor);
+
+		novoElemento.proximo = aux;
+		novoElemento.anterior = noAnterior;
+
+		noAnterior.proximo = novoElemento;
+		aux.anterior = novoElemento;
+
+		tamanho++;
+	}
+
+	public void removerIndice(int posicao) {
+		if (posicao < 0 || posicao > tamanho) {
+			System.out.println("Posição inválida: " + posicao + ". A lista tem tamanho " + tamanho + ".");
+			return;
+		}
+		if (posicao == 0) {
+			removerInicio();
+			return;
+		}
+		if (posicao == tamanho - 1) {
+
+			removerFim();
+			return;
+		}
+		No<e> posicaoLista = cabeca;
+		for(int i = 0; i < posicao; i++) {
+			posicaoLista = posicaoLista.proximo;
+		}
+		
+		No<e> posicaoAnterior = posicaoLista.anterior;
+		No<e> posicaoProximo = posicaoLista.proximo;
+		
+		posicaoAnterior.proximo  = posicaoProximo;
+		posicaoProximo.anterior = posicaoAnterior ;
+		tamanho--;
+	}
+
+	public static void main(String[] args) {
+
+		ListaDupla<Integer> lista = new ListaDupla<>();
+
+		lista.adcionarFim(231);
+		lista.adcionarInicio(871);
+		lista.adcionarInicio(654);
+
+		
+		
+		System.out.println("");
+		
+		System.out.println("");
+		lista.inserirEmPosicao(1, 709);
+		lista.removerIndice(2);
+		lista.imprimir();
+		
+		System.out.println("");
+		
 		lista.imprimirContrario();
 		System.out.println("");
-		lista.imprimir();
+		lista.contem(2312);
+
 	}
 }
